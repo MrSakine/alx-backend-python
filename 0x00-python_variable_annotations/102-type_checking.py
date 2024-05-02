@@ -5,7 +5,7 @@ import typing
 
 def zoom_array(
         lst: typing.Sequence[typing.Any],
-        factor: typing.Any = 2
+        factor: int = 2
         ) -> typing.List:
     """Type Checking"""
     zoomed_in: typing.List = [item for item in lst for i in range(factor)]
