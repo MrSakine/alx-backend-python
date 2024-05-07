@@ -10,9 +10,6 @@ async def async_generator() -> typing.Generator[float, None, None]:
     Loop 10 times, each time asynchronously wait 1 second,
     then yield a random number between 0 and 10
     """
-    n = 10
-    sec = 1
-    for _ in range(n):
-        number: float = random.uniform(0, n)
-        await asyncio.sleep(sec)
-        yield number
+    for _ in range(0, 10):
+        await asyncio.sleep(1)
+        yield random.uniform(0, 10)
