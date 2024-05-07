@@ -2,17 +2,17 @@
 """0-async_generator.py"""
 import asyncio
 import random
+import typing
 
 
-async def async_generator() -> None:
+async def async_generator() -> typing.Generator[float, None, None]:
     """
     Loop 10 times, each time asynchronously wait 1 second,
     then yield a random number between 0 and 10
     """
-    max_delay: int = 10
-    n: int = 9
+    n: int = 10
     sec: int = 1
-    for i in range(n):
-        number: float = random.uniform(0, max_delay)
+    for _ in range(n):
+        number: float = random.uniform(0, n)
         await asyncio.sleep(sec)
         yield number
