@@ -10,6 +10,7 @@ from typing import (
     Dict,
     Tuple,
     Union,
+    List,
     Any
 )
 from unittest.mock import (
@@ -51,10 +52,10 @@ class TestAccessNestedMap(unittest.TestCase):
 class TestGetJson(unittest.TestCase):
     """ Class definition """
 
-    @patch("requests.get")
+    @patch("utils.requests.get")
     def test_get_json(self, mock: Mock) -> None:
         """ Test `get_json` method """
-        test_cases = [
+        test_cases: List[Dict[str, Any]]  = [
             {
                 "test_url": "http://example.com",
                 "test_payload": {"payload": True}
