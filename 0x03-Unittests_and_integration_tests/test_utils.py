@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Unittests and Integration Tests"""
 import unittest
+from unittest.mock import (
+    patch,
+    Mock
+)
 from parameterized import parameterized
 from utils import (
     access_nested_map,
@@ -12,10 +16,6 @@ from typing import (
     Union,
     List,
     Any
-)
-from unittest.mock import (
-    patch,
-    Mock
 )
 
 
