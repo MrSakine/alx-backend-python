@@ -52,26 +52,13 @@ class TestAccessNestedMap(unittest.TestCase):
 class TestGetJson(unittest.TestCase):
     """ Class definition """
 
-    @patch("utils.requests.get")
-    def test_get_json(self, mock: Mock) -> None:
+    @parameterized.expand([
+        ("http://example.com", {"payload": True}),
+        ("http://holberton.io", {"payload": False}),
+    ])
+    def test_get_json(self, url: str, payload: Dict[str, Any]) -> None:
         """ Test `get_json` method """
-        test_cases: List[Dict[str, Any]]  = [
-            {
-                "test_url": "http://example.com",
-                "test_payload": {"payload": True}
-            },
-            {
-                "test_url": "http://holberton.io",
-                "test_payload": {"payload": False}
-            }
-        ]
-        for case in test_cases:
-            test_url: str = case["test_url"]
-            test_payload: Dict[str, Any] = case["test_payload"]
-            mock_response = Mock()
-            mock_response.json.return_value = test_payload
-            mock.return_value = mock_response
-            result: Dict[str, Any] = get_json(test_url)
-            mock.assert_called_once_with(test_url)
-            self.assertEqual(result, test_payload)
-            mock.reset_mock()
+        attrs = {'json.return_value': payload}
+        with patch("utils.requests.get", return_value=Mock(**attrs)) as req:
+            self.assertEqual(get_json(url), payload)
+            req.assert_called_once_with(url)
