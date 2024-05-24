@@ -56,10 +56,16 @@ class TestGetJson(unittest.TestCase):
         ("http://example.com", {"payload": True}),
         ("http://holberton.io", {"payload": False}),
     ])
-    def test_get_json(self, url: str, payload: Dict[str, Any]) -> None:
+    @patch("utils.requests.get")
+    def test_get_json(
+        self,
+        url: str,
+        payload: Dict[str, Any],
+        mock: Mock
+    ) -> None:
         """ Test `get_json` method """
-        attrs = {"json.return_value": payload}
-        mock = Mock(**attrs)
-        with patch("utils.requests.get", return_value=mock) as req:
-            self.assertEqual(get_json(url), payload)
-            req.assert_called_once_with(url)
+        mock_response = Mock()
+        mock_response.json.return_value = payload
+        mock.return_value = mock_response
+        self.assertEqual(get_json(url=url), payload)
+        mock.assert_called_once_with(url)
