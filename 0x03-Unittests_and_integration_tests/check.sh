@@ -1,0 +1,1 @@
+pycodestyle $1
