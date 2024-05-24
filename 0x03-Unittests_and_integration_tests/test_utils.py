@@ -13,12 +13,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
         ({"a": {"b": 2}}, ("a", "b"), 2),
     ])
-    def test_access_nested_map(
-        self,
-        map: Sequence,
-        path: Sequence,
-        result: int
-    ):
+    def test_access_nested_map(self, map: Sequence, path: Sequence, result: int):
         """ Test access nested map method"""
         self.assertEqual(access_nested_map(map, path), result)
 
