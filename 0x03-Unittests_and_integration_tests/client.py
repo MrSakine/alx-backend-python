@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""A github org client
-"""
+"""A github org client"""
 from typing import (
     List,
     Dict,
