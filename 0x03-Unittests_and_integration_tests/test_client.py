@@ -78,23 +78,12 @@ class TestGithubOrgClient(unittest.TestCase):
             mock.assert_called_once()
 
     @parameterized.expand([
-        (
-            {"license": {"key": "my_license"}},
-            "my_license",
-            True
-        ),
-        (
-            {"license": {"key": "other_license"}},
-            "my_license",
-            False
-        )
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False)
     ])
     def test_has_license(
-        self,
-        repo: Dict[str, Dict],
-        license_key: str,
-        expected_result: bool
-    ):
+        self, repo: Dict[str, Dict], license_key: str, expected_result: bool
+    ) -> None:
         """ Test `has_license` method """
         self.assertEqual(
             GithubOrgClient.has_license(repo, license_key),
