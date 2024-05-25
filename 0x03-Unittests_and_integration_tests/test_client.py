@@ -8,6 +8,7 @@ from unittest.mock import (
 )
 from parameterized import parameterized
 from client import GithubOrgClient
+from typing import Dict
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -75,3 +76,24 @@ class TestGithubOrgClient(unittest.TestCase):
                 f"https://api.github.com/orgs/{org}/repos"
             )
             mock.assert_called_once()
+
+    @parameterized.expand([
+        (
+            {"license": {"key": "my_license"}},
+            "my_license",
+            True
+        ),
+        (
+            {"license": {"key": "other_license"}},
+            "my_license",
+            False
+        )
+    ])
+    def test_has_license(
+        self,
+        repo: Dict[str, Dict[str, str]],
+        license: str,
+        res: bool
+    ):
+        """ Test `has_license` method """
+        self.assertEqual(GithubOrgClient.has_license(repo, license), res)
